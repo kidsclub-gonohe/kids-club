@@ -10479,8 +10479,19 @@ function findAlignmentPattern(matrix, alignmentPatternQuads, topRight, topLeft, 
   }
   function doLeave() {
     if (!pendingLeaveId) return;
+    const id = pendingLeaveId;
     closeConfirm();
-    handleScan(pendingLeaveId, '退室');
+    if (!inRoom[id]) return;
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    const entry = inRoom[id];
+    undoStack.push({ childId: id, prevInRoom: JSON.parse(JSON.stringify(entry)), prevWentHome: wentHome[id] ? JSON.parse(JSON.stringify(wentHome[id])) : null, logIndex: attendanceLog.length });
+    delete inRoom[id];
+    wentHome[id] = { name: entry.name, enterTimeStr: entry.enterTimeStr, leaveTime: now.getTime(), leaveTimeStr: timeStr };
+    attendanceLog.push({ datetime: todayStr() + " " + timeStr, id: id, status: "退室", name: entry.name });
+    saveState();
+    updateBoard();
+    playBeep("leave");
   }
 
   function switchTab(tab) {
