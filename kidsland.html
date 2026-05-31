@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>きりっこひろば 出欠受付 ＆ リアルタイム在室管理</title>
+  <title>キッズランド 出欠受付 ＆ リアルタイム在室管理</title>
   <style>
     * { box-sizing: border-box; }
     body { font-family: "Yu Gothic", "游ゴシック", sans-serif; margin: 0; padding: 15px; background: #eef2f3; color: #333; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -112,7 +112,7 @@
 </style>
 </head>
 <body>
-  <h2>きりっこひろば 出欠受付 ＆ リアルタイム在室管理</h2>
+  <h2>キッズランド 出欠受付 ＆ リアルタイム在室管理</h2>
   <div id="date-warning"></div>
   <div class="main-container">
     <div class="left-panel">
@@ -10538,7 +10538,7 @@ function findAlignmentPattern(matrix, alignmentPatternQuads, topRight, topLeft, 
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url; a.download = "きりっこひろば出欠ログ_" + todayStr() + ".csv";
+      a.href = url; a.download = "キッズランド出欠ログ_" + todayStr() + ".csv";
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
     }
     function resetToday() {
