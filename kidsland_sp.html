@@ -10437,13 +10437,13 @@ function findAlignmentPattern(matrix, alignmentPatternQuads, topRight, topLeft, 
     } else {
       listInside.innerHTML = inIds.map(id => {
         const c = inRoom[id];
-        return '<div class="member-item">' +
+        return '<div class="member-item" data-id="' + encodeURIComponent(id) + '">' +
           '<div class="member-info">' +
             '<div class="member-name">' + escapeHTML(c.name || id) + '</div>' +
             '<div class="member-meta">' + c.enterTimeStr + ' 入室</div>' +
           '</div>' +
           '<span class="member-elapsed" data-enter="' + c.enterTime + '"></span>' +
-          '<button class="btn-leave-now" onclick="confirmLeave(\'' + escapeHTML(id) + '\')">退室</button>' +
+          '<button class="btn-leave-now" onclick="confirmLeaveById(this)">退室</button>' +
         '</div>';
       }).join('');
     }
@@ -10464,10 +10464,12 @@ function findAlignmentPattern(matrix, alignmentPatternQuads, topRight, topLeft, 
     }
   }
 
-  function confirmLeave(id) {
+  function confirmLeaveById(btn) {
+    const item = btn.closest('.member-item');
+    const id = decodeURIComponent(item.dataset.id);
     pendingLeaveId = id;
     const name = inRoom[id] ? inRoom[id].name : id;
-    document.getElementById('confirm-msg').textContent = escapeHTML(name) + ' を退室処理しますか？';
+    document.getElementById('confirm-msg').textContent = name + ' を退室処理しますか？';
     document.getElementById('confirm-modal').classList.add('open');
   }
   function closeConfirm() {
